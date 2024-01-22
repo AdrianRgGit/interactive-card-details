@@ -1,0 +1,50 @@
+<form class="flex flex-col p-6 gap-y-4 text-lg">
+  <div class="flex flex-col">
+    <label class="text-gray-3 mb-2" for="name">CARDHOLDER NAME</label>
+    <input
+      class="flex-grow border p-4 rounded-lg border-gray-1"
+      type="text"
+      placeholder="e.g Jane Appleseed"
+    />
+  </div>
+
+  <div class="flex flex-col">
+    <label class="text-gray-3 mb-2" for="card-number">CARD NUMBER</label>
+    <input
+      class="flex-grow border p-4 rounded-lg border-gray-1"
+      type="number"
+      placeholder="e.g. 1234 5678 9123 0000"
+    />
+  </div>
+
+  <div class="flex flex-row gap-x-2 mb-4">
+    <div class="flex flex-col w-1/2">
+      <label class="mb-2" for="exp-date">EXP.DATE (MM/YY)</label>
+      <div class="flex flex-row gap-x-2">
+        <input
+          class="w-1/2 border p-4 rounded-lg border-gray-1"
+          type="number"
+          placeholder="MM"
+        />
+        <input
+          class="w-1/2 border p-4 rounded-lg border-gray-1"
+          type="number"
+          placeholder="YY"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col w-1/2">
+      <label class="mb-2" for="cvc">CVC</label>
+      <input
+        class="border p-4 rounded-lg border-gray-1"
+        type="number"
+        placeholder="e.g. 123"
+      />
+    </div>
+  </div>
+
+  <button class="bg-gray-3 p-4 rounded-lg text-white-1" type="submit"
+    >Confirm</button
+  >
+</form>
