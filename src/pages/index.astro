@@ -1,24 +1,108 @@
 ---
+export const prerender = false;
+
 import FrontCard from "../components/Cards/FrontCard.astro";
 import BackCard from "../components/Cards/BackCard.astro";
-import Form from "../components/Form.tsx";
 import Layout from "../layouts/Layout.astro";
 
+let formData;
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const cardholder = data.get("cardholder");
+    const cardNumber = data.get("card-number");
+    const expDateMonth = data.get("exp-date-month");
+    const expDateYear = data.get("exp-date-year");
+    const cvc = data.get("cvc");
+
+    formData = { cardholder, cardNumber, expDateMonth, expDateYear, cvc };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
+console.log(formData);
 ---
 
 <Layout title="Index">
   <main>
     <div class="images-container p-4 mb-24 h-80">
       <div class="relative">
-        <BackCard />
+        <BackCard formData={formData} />
       </div>
       <div class="relative bottom-20">
-        <FrontCard />
+        <FrontCard formData={formData} />
       </div>
     </div>
 
     <div>
-      <Form client:load />
+      <form method="POST" class="flex flex-col p-6 gap-y-4 text-lg">
+        <div class="flex flex-col">
+          <label class="text-gray-3 mb-2 flex flex-col"
+            >CARDHOLDER NAME
+            <input
+              name="cardholder"
+              class="flex-grow border p-4 rounded-lg border-gray-1"
+              type="text"
+              placeholder="e.g Jane Appleseed"
+            />
+          </label>
+        </div>
+
+        <div class="flex flex-col">
+          <label class="text-gray-3 mb-2 flex flex-col"
+            >CARD NUMBER
+            <input
+              name="card-number"
+              class="flex-grow border p-4 rounded-lg border-gray-1"
+              type="number"
+              placeholder="e.g. 1234 5678 9123 0000"
+            />
+          </label>
+        </div>
+
+        <div class="flex flex-row gap-x-2 mb-4">
+          <div class="flex flex-col w-1/2">
+            <label class="mb-2"
+              >EXP.DATE (MM/YY)
+
+              <div class="flex flex-row gap-x-2">
+                <input
+                  name="exp-date-month"
+                  class="w-1/2 border p-4 rounded-lg border-gray-1"
+                  type="number"
+                  placeholder="MM"
+                />
+                <input
+                  name="exp-date-year"
+                  class="w-1/2 border p-4 rounded-lg border-gray-1"
+                  type="number"
+                  placeholder="YY"
+                />
+              </div>
+            </label>
+          </div>
+
+          <div class="flex flex-col w-1/2">
+            <label class="mb-2 flex flex-col"
+              >CVC
+              <input
+                name="cvc"
+                class="border p-4 rounded-lg border-gray-1"
+                type="number"
+                placeholder="e.g. 123"
+              />
+            </label>
+          </div>
+        </div>
+
+        <button class="bg-gray-3 p-4 rounded-lg text-white-1" type="submit">
+          Confirm
+        </button>
+      </form>
     </div>
   </main>
 </Layout>
