@@ -1,8 +1,9 @@
 ---
 import FrontCard from "../components/Cards/FrontCard.astro";
 import BackCard from "../components/Cards/BackCard.astro";
-import Form from "../components/Form.astro";
+import Form from "../components/Form.tsx";
 import Layout from "../layouts/Layout.astro";
+
 ---
 
 <Layout title="Index">
@@ -17,7 +18,7 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <div>
-      <Form />
+      <Form client:load />
     </div>
   </main>
 </Layout>
